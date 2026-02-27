@@ -54,11 +54,12 @@ app.post("/webhook", async (req, res) => {
           "0️⃣ Finalizar";
     }
 
+    const cleanedNumber = from.replace(/^521/, "52");
     await axios.post(
       `https://graph.facebook.com/v18.0/${PHONE_NUMBER_ID}/messages`,
       {
         messaging_product: "whatsapp",
-        to: from,
+        to: cleanedNumber,
         text: { body: responseText },
       },
       {
