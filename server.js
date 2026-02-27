@@ -28,8 +28,19 @@ app.get("/webhook", (req, res) => {
 =================================*/
 app.post("/webhook", async (req, res) => {
   try {
-    const message = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    if (!message) return res.sendStatus(200);
+    const value = req.body.entry?.[0]?.changes?.[0]?.value;
+
+    // 🔒 Solo procesar si realmente hay mensajes
+    if (!value?.messages) {
+      return res.sendStatus(200);
+    }
+
+    const message = value.messages[0];
+
+    // 🔒 Ignorar mensajes enviados por el bot
+    if (message.from === value.metadata.phone_number_id) {
+      return res.sendStatus(200);
+    }
 
     const from = message.from;
     const cleanedNumber = from.replace(/^521/, "52");
