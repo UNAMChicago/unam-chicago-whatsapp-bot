@@ -36,58 +36,42 @@ app.post("/webhook", async (req, res) => {
 
     let userSelection = null;
 
-    // Detectar tipo de mensaje
     if (message.type === "interactive") {
       userSelection = message.interactive.button_reply.id;
     } else if (message.type === "text") {
-      userSelection = message.text.body.toLowerCase();
+      userSelection = message.text.body.toLowerCase().trim();
     }
 
+    console.log("Usuario seleccionó:", userSelection);
+
     /* ===============================
-       MENÚ PRINCIPAL
+       MENÚ PRINCIPAL SOLO SI DICE HOLA
     =================================*/
-    if (
-      userSelection === "hola" ||
-      userSelection === "menu" ||
-      !userSelection ||
-      userSelection === "volver"
-    ) {
+    if (userSelection === "hola" || userSelection === "menu") {
       await sendMainMenu(cleanedNumber);
       return res.sendStatus(200);
     }
 
     /* ===============================
-       OPCIÓN INVIErNO
+       INVIErNO
     =================================*/
     if (userSelection === "invierno") {
       await sendInviernoMenu(cleanedNumber);
       return res.sendStatus(200);
     }
 
-    /* ===============================
-       SUBMENÚ INVIErNO
-    =================================*/
     if (userSelection === "costos_invierno") {
-      await sendText(
-        cleanedNumber,
-        "💰 Los costos del programa Invierno PUMA 2026 están disponibles aquí:\nhttps://unamchicago.org/invierno"
-      );
+      await sendText(cleanedNumber, "💰 Info de costos aquí:\nhttps://unamchicago.org/invierno");
       return res.sendStatus(200);
     }
 
     if (userSelection === "fechas_invierno") {
-      await sendText(
-        cleanedNumber,
-        "📅 Las fechas del programa Invierno PUMA 2026 están disponibles aquí:\nhttps://unamchicago.org/invierno"
-      );
+      await sendText(cleanedNumber, "📅 Fechas disponibles aquí:\nhttps://unamchicago.org/invierno");
       return res.sendStatus(200);
     }
 
     if (userSelection === "requisitos_invierno") {
-      await sendText(
-        cleanedNumber,
-        "📍 Requisitos del programa:\nSer estudiante activo UNAM.\nMás info aquí:\nhttps://unamchicago.org/invierno"
-      );
+      await sendText(cleanedNumber, "📍 Requisitos aquí:\nhttps://unamchicago.org/invierno");
       return res.sendStatus(200);
     }
 
@@ -95,10 +79,7 @@ app.post("/webhook", async (req, res) => {
        VISITAS
     =================================*/
     if (userSelection === "visitas") {
-      await sendText(
-        cleanedNumber,
-        "🎓 Información Visitas Profesionales 2026:\nhttps://unamchicago.org/visitas"
-      );
+      await sendText(cleanedNumber, "🎓 Info visitas:\nhttps://unamchicago.org/visitas");
       return res.sendStatus(200);
     }
 
@@ -106,16 +87,14 @@ app.post("/webhook", async (req, res) => {
        DESCUENTO
     =================================*/
     if (userSelection === "descuento") {
-      await sendText(
-        cleanedNumber,
-        "🎁 Descuento comunidad UNAM:\nEscribe a un asesor para aplicar el descuento."
-      );
+      await sendText(cleanedNumber, "🎁 Info descuento UNAM disponible con asesor.");
       return res.sendStatus(200);
     }
 
-    // Si no reconoce mensaje
-    await sendMainMenu(cleanedNumber);
-    res.sendStatus(200);
+    // Si escribe algo random
+    await sendText(cleanedNumber, "Escribe 'hola' para ver el menú.");
+    return res.sendStatus(200);
+
   } catch (error) {
     console.error(error.response?.data || error.message);
     res.sendStatus(500);
