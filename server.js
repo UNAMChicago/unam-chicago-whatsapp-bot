@@ -139,29 +139,29 @@ async function sendMainMenu(to) {
           text: "👋 Bienvenido a UNAM Chicago 🤓\n\nSelecciona una opción:"
         },
         action: {
-          buttons: [
-            {
-              type: "reply",
-              reply: {
-                id: "invierno",
-                title: "📘 Invierno PUMA 2026"
-              }
-            },
-            {
-              type: "reply",
-              reply: {
-                id: "visitas",
-                title: "🎓 Visitas Profesionales"
-              }
-            },
-            {
-              type: "reply",
-              reply: {
-                id: "descuento",
-                title: "🎁 Descuento UNAM"
-              }
-            }
-          ]
+         buttons: [
+  {
+    type: "reply",
+    reply: {
+      id: "invierno",
+      title: "Invierno 2026"
+    }
+  },
+  {
+    type: "reply",
+    reply: {
+      id: "visitas",
+      title: "Visitas 2026"
+    }
+  },
+  {
+    type: "reply",
+    reply: {
+      id: "descuento",
+      title: "Descuento UNAM"
+    }
+  }
+]
         }
       }
     },
@@ -188,28 +188,28 @@ async function sendInviernoMenu(to) {
         },
         action: {
           buttons: [
-            {
-              type: "reply",
-              reply: {
-                id: "costos_invierno",
-                title: "💰 Costos"
-              }
-            },
-            {
-              type: "reply",
-              reply: {
-                id: "fechas_invierno",
-                title: "📅 Fechas"
-              }
-            },
-            {
-              type: "reply",
-              reply: {
-                id: "requisitos_invierno",
-                title: "📍 Requisitos"
-              }
-            }
-          ]
+  {
+    type: "reply",
+    reply: {
+      id: "costos_invierno",
+      title: "Costos"
+    }
+  },
+  {
+    type: "reply",
+    reply: {
+      id: "fechas_invierno",
+      title: "Fechas"
+    }
+  },
+  {
+    type: "reply",
+    reply: {
+      id: "requisitos_invierno",
+      title: "Requisitos"
+    }
+  }
+]
         }
       }
     },
